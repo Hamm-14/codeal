@@ -1,3 +1,5 @@
 module.exports.home = function(req,res){
-    return res.end('<h1>Home Controller is running fine');
+    return res.render('home',{
+        title: "Home"
+    });
 }
