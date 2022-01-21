@@ -5,8 +5,15 @@ const port = 8000;
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 
+//setting up the path for static files
+app.use(express.static('./assets'));
+
 //making my app to use the layout during rendering the file
 app.use(expressLayouts);
+
+//extract styles and scripts from subpages and put it into the head(style) and at the last inside the body tag(scripts)
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 //routing to the routes folder for home('/') request
 app.use('/',require('./routes/index'));
