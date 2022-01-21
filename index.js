@@ -3,6 +3,10 @@ const port = 8000;
 
 //setup the router
 const app = express();
+const expressLayouts = require('express-ejs-layouts');
+
+//making my app to use the layout during rendering the file
+app.use(expressLayouts);
 
 //routing to the routes folder for home('/') request
 app.use('/',require('./routes/index'));
