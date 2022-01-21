@@ -3,6 +3,8 @@ const port = 8000;
 
 //setup the router
 const app = express();
+const db = require('./config/mongoose');
+
 const expressLayouts = require('express-ejs-layouts');
 
 //setting up the path for static files
