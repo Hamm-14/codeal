@@ -1,12 +1,23 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const port = 8000;
 
 //setup the router
 const app = express();
-const db = require('./config/mongoose');
+const port = 8000;
 
 const expressLayouts = require('express-ejs-layouts');
+
+const db = require('./config/mongoose');
+
+//used for session cookie
+const session = require('express-session');
+
+//require passport and localStrategy that I hav set in
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+
+//for storing the session cookie permanently in db even after server restarts
+const MongoStore = require('connect-mongo');
 
 //getting data from post request
 app.use(express.urlencoded());
@@ -24,12 +35,37 @@ app.use(expressLayouts);
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 
-//routing to the routes folder for home('/') request
-app.use('/',require('./routes/index'));
-
 //setting up ejs
 app.set('view engine','ejs');
 app.set('views','./views');
+
+//adding middleware which takes-in session cookie and encrypt it
+//MongoStore is used to store the session cookie in db
+app.use(session({
+    name: 'codeial',
+    secret: 'blahsomething',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: (1000*60*100)
+    },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/codeial_development',
+        autoRemove: 'disabled'
+    })
+}));
+
+//initilizing passport for authentication
+app.use(passport.initialize());
+
+//using passport for maintaining sessions
+app.use(passport.session());
+
+//setup current user usage
+app.use(passport.setAuthenticatedUser);
+
+//routing to the routes folder for home('/') request
+app.use('/',require('./routes'));
 
 app.listen(port,function(err){
     if(err){
