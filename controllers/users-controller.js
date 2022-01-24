@@ -25,8 +25,7 @@ module.exports.signUp = function(req,res){
 }
 
 module.exports.createUser = function(req,res){
-    // console.log(req.body.confirm_password);
-    // return res.redirect('back');
+
     if(req.body.password != req.body.confirm_password){
         return res.redirect('back');
     }
