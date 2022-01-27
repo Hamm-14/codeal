@@ -1,7 +1,6 @@
 const Post = require('../models/post');
 
 module.exports.home = function(req,res){
-    if(req.isAuthenticated()){
         // Post.find({},function(err,posts){
         //     if(err){console.log("Error in finding post");return;}
         //     return res.render('home',{
@@ -16,7 +15,4 @@ module.exports.home = function(req,res){
                 posts: posts
             });
         });
-        return;
-    }
-    return res.redirect('/users/sign-in');
 }
