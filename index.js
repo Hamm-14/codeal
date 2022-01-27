@@ -19,19 +19,6 @@ const passportLocal = require('./config/passport-local-strategy');
 //for storing the session cookie permanently in db even after server restarts
 const MongoStore = require('connect-mongo');
 
-const sass = require('sass');
-
-const result = sass.compile('./assets/scss/layout.scss');
-console.log(result.css);
-
-// app.use(sass({
-//     src: '/assets/scss',
-//     dest: '/assets/css',
-//     debug: true,
-//     outputStyle: 'expanded',
-//     prefix: '/css'
-// }));
-
 //getting data from post request
 app.use(express.urlencoded());
 
@@ -39,7 +26,7 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //setting up the path for static files
-app.use(express.static('./assets'));
+app.use(express.static('assets'));
 
 //making my app to use the layout during rendering the file
 app.use(expressLayouts);

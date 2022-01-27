@@ -35,7 +35,7 @@ module.exports.createUser = function(req,res){
 
         if(!user){
             User.create(req.body,function(err,user){
-                if(err){console.log("Error in craeting the user on signup");return;}
+                if(err){console.log("Error in creating the user on signup");return;}
                 return res.redirect('/users/sign-in');
             });
         }else{
@@ -51,5 +51,5 @@ module.exports.createSession = function(req,res){
 module.exports.destroySession = function(req,res){
     req.logout();
 
-    return res.redirect('/');
+    return res.redirect('/users/sign-in');
 }
