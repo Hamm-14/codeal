@@ -14,7 +14,7 @@ module.exports.create = function(req,res){
             },function(err,comment){
                 if(err){console.log("Error in creating the comment in db");return;}
 
-                post.comments.push(comment._id);
+                post.comments.push(comment);
                 post.save();
             });
         }
