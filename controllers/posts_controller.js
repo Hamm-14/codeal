@@ -11,3 +11,20 @@ module.exports.create = function(req,res){
         return res.redirect('back');
      });
 }
+
+module.exports.destroy = function(req,res){
+    Post.findById(req.params.id,function(err,post){
+        if(err){console.log("Error in finding the post");return;}
+
+        // .id means converting object_id into string
+        if(post.user == req.user.id){
+            post.remove();
+            // delete comments associated with this post
+            Comment.deleteMany({post: req.params.id},function(err){
+                return res.redirect('back');
+            });
+        }else{
+            return res.redirect('back');
+        }
+    });
+}
