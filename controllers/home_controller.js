@@ -20,9 +20,14 @@ module.exports.home = function(req,res){
            }
        }).exec(function(err,posts){
            if(err){console.log("Error in fetching the posts from db",err);return;}
-           return res.render('home',{
-               title: "Codeial | Home",
-               posts: posts
+           User.find({},function(err,users){
+            if(err){console.log("Error in fetching the users from db",err);return;}
+
+            return res.render('home',{
+                title: "Codeial | Home",
+                posts: posts,
+                all_users: users
+            });
            });
        });
 }
