@@ -42,11 +42,12 @@ module.exports.signUp = function(req,res){
 module.exports.createUser = function(req,res){
 
     if(req.body.password != req.body.confirm_password){
+        req.flash('error','Password does not match');
         return res.redirect('back');
     }
 
     User.findOne({email: req.body.email},function(err,user){
-        if(err){console.log("Error in finding the user on signup");return;}
+        if(err){console.log("error in finding the user");return;}
 
         if(!user){
             User.create(req.body,function(err,user){
@@ -60,7 +61,6 @@ module.exports.createUser = function(req,res){
 }
 
 module.exports.createSession = function(req,res){
-    req.flash('success','Logged in Successfully');
     return res.redirect('/');        //redirecting to homepage after successful logged-in
 }
 
