@@ -16,10 +16,20 @@ module.exports.create = async function(req,res){
 
         post.comments.push(comment);
         post.save();
+        req.flash("success",'Comment Added');
+        if(req.xhr){
+            let commentWithUser = await Comment.findById(comment.id).populate('user');
+            return res.status(200).json({
+                data:{
+                    comment : commentWithUser,
+                },
+                message: 'Comment Created'
+            });
+        }
     }
     return res.redirect('back');
     }catch(err){
-        console.log("Error",err);
+        req.flash('error','Error in adding comment');
         return;
     }
 }
@@ -36,6 +46,15 @@ module.exports.destroy = async function(req,res){
         let index = post.comments.indexOf(req.query.cid);
         post.comments.splice(index,1);
         post.save();
+        req.flash('success','Comment Deleted');
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    comment: comment
+                },
+                message: "comment deleted"
+            });
+        }
     }
     return res.redirect('back');
     }catch(err){
