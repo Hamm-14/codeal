@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
 
-
 const expressLayouts = require('express-ejs-layouts');
 
 const db = require('./config/mongoose');
@@ -31,6 +30,9 @@ app.use(cookieParser());
 
 //setting up the path for static files
 app.use(express.static('assets'));
+
+//make the uploads path available to the browser
+app.use('/uploads',express.static(__dirname + '/uploads'));
 
 //making my app to use the layout during rendering the file
 app.use(expressLayouts);
