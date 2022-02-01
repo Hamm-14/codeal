@@ -9,16 +9,45 @@ module.exports.profile = function(req,res){
     });
 }
 
-module.exports.update = function(req,res){
-    if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
-            if(err){console.log("Error in finding the user");return;}
+module.exports.update = async function(req,res){
 
-            return res.redirect('back');
-        });
-    }else{
-        return res.status(401).send('Unauthorized');
+    try{
+        if(req.user.id == req.params.id){
+            let user = await User.findById(req.params.id);
+            //form consist of multipart/form-data that's why it will take the data through multer(uploaded avatar)
+            User.uploadedAvatar(req,res,function(err){ 
+                if(err){
+                    console.log("****Multer Error: ",err);
+                    return;
+                }
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                if(req.file){
+                    //saving the path of uploaded file in 'avatar' field of 'userSchema'
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                user.save();
+                return res.redirect('back');
+            });
+        }
+            else{
+                 return res.status(401).send('Unauthorized');
+            }
     }
+    catch(err){
+        console.log("Error in updating the post",err);
+        return;
+    }
+    // if(req.user.id == req.params.id){
+    //     User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+    //         if(err){console.log("Error in finding the user");return;}
+
+    //         return res.redirect('back');
+    //     });
+    // }else{
+    //     return res.status(401).send('Unauthorized');
+    // } 
 }
 
 module.exports.signIn = function(req,res){

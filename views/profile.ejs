@@ -3,9 +3,10 @@
 <h1> Codeial <%=title%> </h1>
 
 <% if(user.id == profile_user.id) { %>  
-    <form action="/users/update/<%= profile_user.id %>" method="post">
+    <form action="/users/update/<%= profile_user.id %>" method="post" enctype="multipart/form-data">
         <input type="text" name="name" value="<%= profile_user.name%>" required>
         <input type="email" name="email" value="<%= profile_user.email%>" required>
+        <input type="file" name="avatar" placeholder="Upload Profile Pic">
         <input type="submit" value="Update">
     </form>
 <% }else{ %>
