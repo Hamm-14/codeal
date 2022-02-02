@@ -15,6 +15,7 @@ const session = require('express-session');
 //require passport and localStrategy that I hav set in
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
 
 //for storing the session cookie permanently in db even after server restarts
 const MongoStore = require('connect-mongo');

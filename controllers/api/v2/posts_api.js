@@ -1,6 +1,47 @@
-module.exports.index = function(req,res){
-    return res.status(200).json({
-        message: 'list of posts from v2',
-        posts: []
-    });
+const Post = require('../../../models/post');
+const Comment = require('../../../models/comment'); 
+
+module.exports.index = async function(req,res){
+
+    try{
+        let posts = await Post.find({})
+                          .sort('-createdAt')
+                          .populate('user','email name avatar')
+                          .populate({
+                              path: 'comments',
+                              populate: {
+                                path: 'user'
+                              }
+                          });
+        return res.status(200).json({
+            message: 'list of posts from v2',
+            posts: posts
+        });
+    }catch(err){
+        return res.status(404).json({
+            message: 'Error in finding the posts'
+        });
+    }
 }
+
+module.exports.destroy = async function(req,res){
+
+    try{
+        let post = await Post.findById(req.params.id);
+
+        // if(post.user == req.user.id){
+        post.remove();
+
+        await Comment.deleteMany({post: req.params.id});
+
+        return res.status(200).json({
+            message: 'Post and associated comments deleted'
+        });
+    }catch(err){
+        console.log("Error",err);
+        return res.status(500).json({
+            message: 'Internal Server Error'
+        });
+    }
+}
+    

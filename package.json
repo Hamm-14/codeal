@@ -26,6 +26,7 @@
     "node": "^16.13.2",
     "node-sass": "^7.0.1",
     "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
   }
 }
