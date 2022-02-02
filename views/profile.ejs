@@ -1,16 +1,31 @@
 
 <link rel="stylesheet" href="/css/user_profile.css">
 
-<img src="<%= user.avatar%>" alt="<%= user.name %>" width="100"><br>
+
+<img id="displayPic" src="<%= profile_user.avatar%>" alt="<%= profile_user.name %>" width="150" height="200"><br>
 
 <% if(user.id == profile_user.id) { %>  
     <form action="/users/update/<%= profile_user.id %>" method="post" enctype="multipart/form-data">
         <input type="text" name="name" value="<%= profile_user.name%>" required>
         <input type="email" name="email" value="<%= profile_user.email%>" required>
-        <input type="file" name="avatar" placeholder="Upload Profile Pic">
+        <input type="file" name="avatar" placeholder="Upload Profile Pic" onchange="readURL(this);">
         <input type="submit" value="Update">
     </form>
 <% }else{ %>
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>  
 <% } %>
+
+<script>
+    //showing the preview of the selected image
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#displayPic').attr('src', e.target.result).css('opacity','0.5');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
