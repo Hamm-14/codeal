@@ -18,6 +18,11 @@ router.post('/create-session',passport.authenticate(
 
 router.get('/sign-out',userController.destroySession);
 
+//route given by passport, this is not the callback url, google will automatically recognize when request is coming from this
+router.get('/auth/google',passport.authenticate('google',{scope: ['profile','email']}));
+
+//callback url for google strategy
+router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect: '/users/sign-in'}),userController.createSession);
 
 
 module.exports = router; 
