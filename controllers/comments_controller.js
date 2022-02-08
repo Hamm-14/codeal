@@ -1,5 +1,6 @@
 const Post = require("../models/post")
 const Comment = require("../models/comment");
+const commentMailer = require('../mailers/comments_mailer');
 
 
 module.exports.create = async function(req,res){
@@ -17,8 +18,10 @@ module.exports.create = async function(req,res){
         post.comments.push(comment);
         post.save();
         req.flash("success",'Comment Added');
+        let commentWithUser = await Comment.findById(comment.id).populate('user');
+        commentMailer.newComment(commentWithUser);
         if(req.xhr){
-            let commentWithUser = await Comment.findById(comment.id).populate('user');
+            
             return res.status(200).json({
                 data:{
                     comment : commentWithUser,
