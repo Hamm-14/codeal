@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const userController = require('../controllers/users-controller'); 
+const resetPassController = require('../controllers/reset_pass_controller');
 
 router.get('/profile/:id',passport.checkAuthentication,userController.profile);
 router.post('/update/:id',passport.checkAuthentication,userController.update);
@@ -23,6 +24,12 @@ router.get('/auth/google',passport.authenticate('google',{scope: ['profile','ema
 
 //callback url for google strategy
 router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect: '/users/sign-in'}),userController.createSession);
+
+router.post('/reset_password',resetPassController.createResetLink);
+
+router.get('/reset_password/',resetPassController.resetPassword);
+
+router.post('/change_password/',resetPassController.changePassword);
 
 
 module.exports = router; 

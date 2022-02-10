@@ -1,7 +1,9 @@
-
+const crypto = require('crypto');
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+const resetPassMailer = require('../mailers/reset_pass_mailer');
+const ResetToken = require('../models/resetPasswordToken');
 
 
 module.exports.profile = function(req,res){
@@ -106,3 +108,4 @@ module.exports.destroySession = function(req,res){
     req.flash('success','You have successfully logged out');
     return res.redirect('/users/sign-in');
 }
+

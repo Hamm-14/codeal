@@ -9,3 +9,11 @@
 <p>
     <a href="/users/auth/google">Google Sign-In/Sign-Up</a>
 </p>
+<br>
+<p>
+    Forgot Password! Enter Email to Reset
+</p>
+<form action="/users/reset_password" method="post">
+    <input type="email" name="email" placeholder="Enter Email.." required>
+    <input type="submit" value="reset">
+</form>
