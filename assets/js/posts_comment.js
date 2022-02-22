@@ -39,6 +39,8 @@
                     for(i of newlyAddedDeleteButton){
                         deleteComment(i);
                     }
+                    //enable the functionality of the toggle like button on new comment
+                    new ToggleLike($('toggle-like-button',newComment));
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -52,8 +54,13 @@
                 <small>
                     <a class="delete-comment-button" href="/comments/destroy/?cid=${ comment._id }&pid=${ comment.post}">X</a>
                 </small>
-            ${ comment.content }<br>
-            <small> ${ comment.user.name } </small>
+        ${ comment.content }<br>
+        <small> ${ comment.user.name } </small>
+        <small>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?type=Comment&id=${comment._id}">
+                   0 Likes
+                </a>
+        </small>
         </li>`);
         }
     

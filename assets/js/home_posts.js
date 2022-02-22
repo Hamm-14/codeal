@@ -39,6 +39,8 @@
                     for(link of links){
                         deletePost(link);
                     }
+                    //enable the functionality of the toggle like button on new post
+                    new ToggleLike($('toggle-like-button',newPost));
                 },
                 error: function(error){
                     errorNoty("Error in Publishing Post");
@@ -59,6 +61,12 @@
         </p>
         <small>
             ${ post.user.name }
+        </small>
+        <br>
+        <small>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?type=Post&id=${post._id}">
+                   0 Likes
+                </a>
         </small>
         <p>
             <div>

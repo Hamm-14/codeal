@@ -25,7 +25,7 @@ const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
 //getting data from post request
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 
 //making our app to use cookieParser
 app.use(cookieParser());

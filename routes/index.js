@@ -11,6 +11,8 @@ router.use('/comments',require('./comments'));
 
 router.use('/api',require('./api'));
 
+router.use('/likes',require('./likes'));
+
 //for further routes access from home('/')
 //router.use('/routerName',require('./routerFile'));
 
