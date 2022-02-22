@@ -21,14 +21,16 @@ module.exports.home = async function(req,res){
         let users = await User.find({});
 
         let friends = new Array();
-        
-        for(friend of req.user.friendships){
-            let populatedFriend = await Friendship.findById(friend).populate('from_user').populate('to_user');
-            if(populatedFriend.from_user._id == req.user._id){
-                friends.push(populatedFriend.from_user);
-            }
-            else{
-                friends.push(populatedFriend.to_user);
+
+        if(req.user){
+            for(friend of req.user.friendships){
+                let populatedFriend = await Friendship.findById(friend).populate('from_user').populate('to_user');
+                if(populatedFriend.from_user._id == req.user._id){
+                    friends.push(populatedFriend.from_user);
+                }
+                else{
+                    friends.push(populatedFriend.to_user);
+                }
             }
         }
         
