@@ -35,6 +35,10 @@
                     let newPost = newPostDom(data.data.post[0]);
                     $('#posts-list-container>ul').prepend(newPost);
                     successNoty("Post Published");
+                    $('.toggle-like-button').each(function(){
+                        let self = this;
+                        let toggleLike = new ToggleLike(self);
+                    });
                     let links = $(' .delete-post-button, newPost');
                     for(link of links){
                         deletePost(link);

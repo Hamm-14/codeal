@@ -8,9 +8,13 @@ const ResetToken = require('../models/resetPasswordToken');
 
 module.exports.profile = function(req,res){
     User.findById(req.params.id,function(err,user){
+        const isFriend = user.friendships.some(element => {
+            return req.user.friendships.includes(element);
+        });
         return res.render('profile',{
             title: "Profile",
-            profile_user: user
+            profile_user: user,
+            isFriend : isFriend
         });
     });
 }

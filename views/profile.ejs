@@ -13,9 +13,23 @@
     </form>
 <% }else{ %>
     <p><%= profile_user.name %></p>
-    <p><%= profile_user.email %></p>  
+    <p><%= profile_user.email %></p>
+    <div id="friend-links">
+        <% if(isFriend) { %>
+            <p>
+                <a class="add-removeFriend" href="/friends/remove_friend/?friendId=<%= profile_user.id %>">Remove Friend</a>
+            </p>
+        <% } else { %>
+            <p>
+                <a class="add-removeFriend" href="/friends/add_friend/?friendId=<%= profile_user.id %>">Add Friend</a>
+            </p>
+        <% } %>
+    </div>
+    
+    
 <% } %>
 
+<script src="/js/friends.js"></script>
 <script>
     //showing the preview of the selected image
     function readURL(input) {

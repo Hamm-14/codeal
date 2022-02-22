@@ -1,14 +1,27 @@
 #home-container{
     display: flex;
-    height: 95vh;
+    height: auto;
 
     #feed-posts{
         width: 70%;
+        height: auto;
         padding: 10px;
     }
-    #user-friends{
+    aside{
         width: 30%;
+        height: auto;
         padding: 10px;
         border-left: 1px solid lightgrey;
+        display: flex;
+        flex-direction: column;
+
+        #user-friends{
+            width: 100%;
+            height: 50%;
+        }
+        #all-users{
+            width: 100%;
+            height: 50%;
+        }
     }
 }

@@ -13,6 +13,8 @@ router.use('/api',require('./api'));
 
 router.use('/likes',require('./likes'));
 
+router.use('/friends',require('./friends'));
+
 //for further routes access from home('/')
 //router.use('/routerName',require('./routerFile'));
 
