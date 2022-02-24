@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
@@ -23,6 +24,15 @@ const MongoStore = require('connect-mongo');
 
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+
+
+//setup the chat server to be used with socket.io
+const chatServer = require('http').createServer(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+
+chatServer.listen(5000, () => {
+    console.log('chat server is listening on port 5000');
+});
 
 //getting data from post request
 app.use(express.urlencoded({extended: true}));

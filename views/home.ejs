@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/chat_box.css">
 
 <div id="home-container">
     <section id="feed-posts">
@@ -21,26 +22,27 @@
 
     <% if(locals.user) { %>
         <aside>
-            <section id="user-friends">
+            <div id="user-friends">
                 <h4>Friends</h4>
                 <% for(u of all_friends) { %>
                     <p>
                         <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
                     </p>
                 <% } %>
-            </section>
-            <section id="all-users">
+            </div>
+            <div id="all-users">
                 <h4>Users</h4>
                 <% for(u of all_users) { %>
                     <p>
                         <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
                     </p>
                 <% } %>
-            </section>
+            </div>
         </aside>
     <% } %>
-    
 </div>
+
+<%- include('_chat_box') -%>
 
 <script src="/js/home_posts.js"></script>
 <script src='/js/posts_comment.js'></script>
@@ -51,5 +53,14 @@
         let toggleLike = new ToggleLike(self);
     });
 </script>
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+<script src="js/chat_engine.js"></script>
+
+<% if(locals.user) { %>
+    <script>
+        new chatEngine('user-chat-box','<%= locals.user._id %>');
+    </script>
+<% } %>
 
 

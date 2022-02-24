@@ -35,6 +35,10 @@
                     let newComment = newCommentDom(data.data.comment);
                     $(`#post-comments-${ data.data.comment.post }`).prepend(newComment);
                     successNoty('Comment Added');
+                    $('.toggle-like-button').each(function(){
+                        let self = this;
+                        let toggleLike = new ToggleLike(self);
+                    });
                     let newlyAddedDeleteButton = $(' .delete-comment-button, newComment');
                     for(i of newlyAddedDeleteButton){
                         deleteComment(i);
