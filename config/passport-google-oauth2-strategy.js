@@ -1,13 +1,14 @@
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
+const env = require('./environment');
 
 const User = require('../models/user');
 
 passport.use(new googleStrategy({
-    clientID: '813714437385-ukvgek7qe39hq0hg8cgrceolu22ffmet.apps.googleusercontent.com',
-    clientSecret: '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',
-    callbackURL: 'http://localhost:8000/users/auth/google/callback'
+    clientID: env.google_client_id,
+    clientSecret: env.google_client_secret,
+    callbackURL: env.google_callback_url,
 }, 
     function(accessToken,refreshToken,profile,done){
         //google generates access token and give it to us and refreshToken is used to generate accessToken again if accessToken is expired

@@ -1,5 +1,5 @@
-
 const express = require('express');
+const env = require('./config/environment');
 const cookieParser = require('cookie-parser');
 
 //setup the router
@@ -41,7 +41,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //setting up the path for static files
-app.use(express.static('assets'));
+app.use(express.static(env.asset_path));
 
 //make the uploads path available to the browser
 app.use('/uploads',express.static(__dirname + '/uploads'));
@@ -61,7 +61,7 @@ app.set('views','./views');
 //MongoStore is used to store the session cookie in db
 app.use(session({
     name: 'codeial',
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
