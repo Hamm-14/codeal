@@ -24,6 +24,7 @@ const MongoStore = require('connect-mongo');
 
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const { Console } = require('console');
 
 
 //setup the chat server to be used with socket.io
@@ -68,7 +69,7 @@ app.use(session({
         maxAge: (1000*60*100)
     },
     store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost/codeial_development',
+        mongoUrl: `mongodb://localhost/${env.db}`,
         autoRemove: 'disabled'
     })
 }));
