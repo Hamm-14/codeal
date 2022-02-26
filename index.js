@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('./config/environment');
+const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 
 //setup the router
@@ -49,6 +50,9 @@ app.use('/uploads',express.static(__dirname + '/uploads'));
 
 //making my app to use the layout during rendering the file
 app.use(expressLayouts);
+
+// setup logger
+app.use(logger(env.morgan.mode,env.morgan.options));
 
 //extract styles and scripts from subpages and put it into the head(style) and at the last inside the body tag(scripts)
 app.set('layout extractStyles',true);
