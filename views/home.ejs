@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/css/home.css">
-<link rel="stylesheet" href="/css/chat_box.css">
+<link rel="stylesheet" href="<%= locals.assetPath('css/home.css') %>">
+<link rel="stylesheet" href="<%= locals.assetPath('css/chat_box.css') %>">
 
 <div id="home-container">
     <section id="feed-posts">
@@ -44,9 +44,9 @@
 
 <%- include('_chat_box') -%>
 
-<script src="/js/home_posts.js"></script>
-<script src='/js/posts_comment.js'></script>
-<script src="js/toggle_likes.js"></script>
+<script src="<%= locals.assetPath('js/home_posts.js') %>"></script>
+<script src="<%= locals.assetPath('js/posts_comment.js') %>"></script>
+<script src="<%= locals.assetPath('js/toggle_likes.js') %>"></script>
 <script>
     $('.toggle-like-button').each(function(){
         let self = this;
@@ -55,7 +55,7 @@
 </script>
 
 <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
-<script src="js/chat_engine.js"></script>
+<script src="<%= locals.assetPath('js/chat_engine.js') %>"></script>
 
 <% if(locals.user) { %>
     <script>

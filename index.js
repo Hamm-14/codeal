@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 //setup the router
 const app = express();
+require('./config/view-helpers')(app);
 const port = 8000;
 
 const expressLayouts = require('express-ejs-layouts');

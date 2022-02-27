@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="/css/user_profile.css">
+<link rel="stylesheet" href="<%= locals.assetPath('css/user_profile.css') %>">
 
 
 <img id="displayPic" src="<%= profile_user.avatar%>" alt="<%= profile_user.name %>" width="150" height="200"><br>
@@ -29,7 +29,7 @@
     
 <% } %>
 
-<script src="/js/friends.js"></script>
+<script src="<%= locals.assetPath('js/friends.js') %>"></script>
 <script>
     //showing the preview of the selected image
     function readURL(input) {
