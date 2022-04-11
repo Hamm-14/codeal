@@ -2,3 +2,4 @@ node_modules/
 uploads/
 gulpfile/
 production_logs/
+public/
